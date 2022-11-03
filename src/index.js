@@ -57,7 +57,7 @@ function* fetchFavorites() {
 }
 
 
-
+// GET category list
 function* fetchCategory(){
 
     console.log('Inside fetchCategory inside Index');
