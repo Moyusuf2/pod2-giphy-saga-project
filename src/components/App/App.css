@@ -1,0 +1,8 @@
+.favoriteList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.favoriteItem {
+    margin: 10px;
+}

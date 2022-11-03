@@ -48,11 +48,22 @@ function* createFavorite(action) {
     console.log('in createFavorite');
 };
 
+function* fetchFavorites() {
+    console.log('in fetchFavorites');
+    let response = yield axios.get('/api/favorite');
+    console.log('response from database', response.data);
+    yield put({
+        type: 'SET_FAVORITES',
+        payload: response.data
+    })
+}
+
 
 // Create the rootSaga generator function
 function* watcherSaga() {
     yield takeEvery('FETCH_GIFS', fetchGIFS);
     yield takeEvery('CREATE_FAVORITE', createFavorite);
+    yield takeEvery('FETCH_FAVORITES', fetchFavorites);
 }
 
 // Create sagaMiddleware
