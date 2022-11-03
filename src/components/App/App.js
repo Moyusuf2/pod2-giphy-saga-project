@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import CategorySelector from '../CategorySelector/CategorySelector';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         </Route>
         <Route path="/favorites" exact>
           <h1>Favorites View</h1>
+          <CategorySelector />
         </Route>
 
     </Router>
