@@ -1,7 +1,9 @@
 import React from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import CategorySelector from '../CategorySelector/CategorySelector';
 import FavoriteList from '../FavoriteList/FavoriteList';
 import './App.css';
+
 
 function App() {
   return (
@@ -11,13 +13,14 @@ function App() {
         <h1>Giphy Search!</h1>
       </div>
       <Route path="/" exact>
-        <h1>Search View</h1>
-      </Route>
-      <Route path="/favorites" exact>
-        <FavoriteList />
-      </Route>
+          <h1>Search View</h1>
+        </Route>
+        <Route path="/favorites" exact>
+          <h1>Favorites View</h1>
+          <CategorySelector />
+          <FavoriteList />
+        </Route>
     </Router>
-
   );
 }
 
