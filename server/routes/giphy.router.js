@@ -3,6 +3,8 @@ const router = express.Router();
 const axios = require('axios');
 
 router.get('/', (req, res) => {
+    //TODO: this is where I am, what is in the req.body, I NEED IT TO BE THE QUERY STRING
+    console.log('req body',req.body);
     axios({
         method: 'GET',
         url: 'https://api.giphy.com/v1/gifs/search',
