@@ -14,10 +14,11 @@ function CategorySelector() {
         console.log(buttonValue);
 
 
-        // dispatch({
-        //     type: 'FETCH_CATEGORY',
-        //     payload: 
-        // })
+/// Dispatch to fetch category based on buttonValue. 
+        dispatch({
+            type: 'FETCH_CATEGORY',
+            payload: buttonValue
+        })
 
 
     }
@@ -27,7 +28,11 @@ function CategorySelector() {
     return (<>
 
         <h3>Sort Category</h3>
-
+        
+        <button 
+            onClick={clickHandler}
+            value='null'
+        >All</button>
         <button 
             onClick={clickHandler}
             value='funny'
@@ -52,6 +57,7 @@ function CategorySelector() {
             onClick={clickHandler}
             value='meme'
         >Meme</button>
+        
 
 
     </>)

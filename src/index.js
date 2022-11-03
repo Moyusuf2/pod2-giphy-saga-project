@@ -47,10 +47,19 @@ function* createFavorite(action) {
 };
 
 
+
+function* fetchCategory(){
+
+    console.log('Inside fetchCategory inside Index');
+}
+
+
+
 // Create the rootSaga generator function
 function* watcherSaga() {
     yield takeEvery('FETCH_GIFS', fetchGIFS);
     yield takeEvery('CREATE_FAVORITE', createFavorite);
+    yield takeEvery('FETCH_CATEGORY', fetchCategory);
 }
 
 // Create sagaMiddleware
