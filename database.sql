@@ -16,10 +16,10 @@ VALUES ('funny'), ('cohort'), ('cartoon'), ('nsfw'), ('meme');
 CREATE TABLE "favorites" (
 	"id" SERIAL PRIMARY KEY,
 	"url" VARCHAR(255) NOT NULL,
-	"categoyry_id" INT REFERENCES "category"
+	"category_id" INT REFERENCES "category"
 );
 
-INSERT INTO "favorites" ("url", "categoyry_id")
+INSERT INTO "favorites" ("url", "category_id")
 VALUES ('https://media0.giphy.com/media/hb2zYRKYY8vLy/giphy.gif?cid=4811bb4bpr2xjatxak7typcninkh8wmatjlnp7gox66nfoql&rid=giphy.gif&ct=g', 1), 
 ('https://media0.giphy.com/media/hb2zYRKYY8vLy/giphy.gif?cid=4811bb4bpr2xjatxak7typcninkh8wmatjlnp7gox66nfoql&rid=giphy.gif&ct=g', 2), 
 ('https://media0.giphy.com/media/hb2zYRKYY8vLy/giphy.gif?cid=4811bb4bpr2xjatxak7typcninkh8wmatjlnp7gox66nfoql&rid=giphy.gif&ct=g', 1), 

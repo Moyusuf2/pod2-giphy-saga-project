@@ -1,18 +1,24 @@
 import React from 'react';
-import SearchForm from '../SeachForm/SearchForm';
-import SearchList from '../SearchList/SearchList';
-import SearchItem from '../SearchItem/SearchItem';
+import SearchForm from '../SearchForm/SearchForm';
+import { HashRouter as Router, Route, Link } from 'react-router-dom';
 
-function App(props) {
+function App() {
   return (
-    <div>
-      <h1>Giphy Search!</h1>
-      <SearchForm />
-      <SearchList />
-      <SearchItem />
-      
 
-    </div>
+    <Router>
+      <div>
+        <h1>Giphy Search!</h1>
+      </div>
+      <Route path="/" exact>
+          <h1>Search View</h1>
+          <SearchForm />
+        </Route>
+        <Route path="/favorites" exact>
+          <h1>Favorites View</h1>
+        </Route>
+
+    </Router>
+
   );
 }
 
