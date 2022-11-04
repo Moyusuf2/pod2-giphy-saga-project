@@ -5,6 +5,7 @@ import FavoriteItem from '../FavoriteItem/FavoriteItem';
 function FavoriteList() {
     const dispatch = useDispatch();
     const favoriteList = useSelector(store => store.favoriteList);
+    // useSelector for category list
 
     useEffect(() => {
         dispatch({
@@ -19,6 +20,7 @@ function FavoriteList() {
         <section className='favoriteList'>
             {favoriteList.map((element) => {
                 return (
+                    // pass const categoryList to each favoriteItem
                     <FavoriteItem key={element.id} element={element} />
                 );
             })}

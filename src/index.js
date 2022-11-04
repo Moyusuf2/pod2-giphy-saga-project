@@ -66,8 +66,10 @@ function* fetchFavorites() {
     })
 };
 
-/// GET results based on category chosen
-function* fetchCategory() {
+
+
+function* fetchCategory(){
+
     console.log('Inside fetchCategory inside Index');
     ///// UNSURE IF THIS⬇️ ROUTE IS CORRECT
     let response = yield axios.get('/api/category');
@@ -76,7 +78,35 @@ function* fetchCategory() {
         type: 'SET_CATEGORY',
         payload: response.data
     });
-};
+}
+
+function* updateCategory(action) {
+    console.log('in updateCategory');
+    console.log('in updateCategory action.payload.id', action.payload.id); // {item: id}
+    console.log('in updateCategory action.payload.data', action.payload.data);
+    // corresponds to button press 1 = funny, 2 = cohort, 3 = cartoon, etc...
+
+    yield axios.put(`/api/favorite/${action.payload.id}`, { data: action.payload.data }); // ???
+
+    yield put({
+        type: 'FETCH_FAVORITES'
+    });
+
+
+    // const updateCategory = (id) => { // ???
+    //     axios({
+    //         method: 'PUT',
+    //         url: `/api/favorite/${id}`,
+    //         data: action.payload.data
+    //     })
+    //         .then(response => {
+    //             console.log('UPDATE response from server', response.data); // Ok
+    //         })
+    //         .catch(err => {
+    //             console.log('UPDATE err from server', err);
+    //         })
+    // }
+}
 
 // Create the rootSaga generator function
 function* watcherSaga() {
@@ -84,6 +114,8 @@ function* watcherSaga() {
     yield takeEvery('CREATE_FAVORITE', createFavorite);
     yield takeEvery('FETCH_CATEGORY', fetchCategory);
     yield takeEvery('FETCH_FAVORITES', fetchFavorites);
+    yield takeEvery('UPDATE_CATEGORY', updateCategory);
+
 }
 
 // Create sagaMiddleware
