@@ -34,7 +34,7 @@ const searchResultList = (state = [], action) => {
 function* fetchGIFS(action) {
     console.log('in fetchGIFS');
 
-    let response = yield axios.get('/api/giphy',action.payload);
+    let response = yield axios.get(`/api/giphy/${action.payload}`);
     console.log(response);
 
     TODO: //handle the data that comes back, ie what do we want
