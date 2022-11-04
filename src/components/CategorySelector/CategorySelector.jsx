@@ -1,4 +1,5 @@
-import {useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 
 
@@ -6,59 +7,70 @@ function CategorySelector() {
     console.log('in CategorySelector');
 
     const dispatch = useDispatch();
+    const category = useSelector(store=> store.categoryList);
 
+    console.log(category);
 
-
-    const clickHandler = e => {
-        const buttonValue = e.target.value
-        console.log('Cat numb', buttonValue);
-
-
-
-/// Dispatch to fetch category based on buttonValue. 
-        dispatch({
-            type: 'FETCH_CATEGORY',
-            payload: buttonValue
-        })
-    }
 
 
 
     return (<>
 
         <h3>Sort Category</h3>
-        
-        <button 
-            onClick={clickHandler}
-            value='null'
-        >All</button>
-        <button 
+
+
+        <button onClick={() => dispatch(
+            {
+                type: 'FETCH_CATEGORY',
+                payload: {
+                    data: 'all'
+                }
+            })}>All</button>
+
+        <button onClick={() => dispatch(
+            {
+                type: 'FETCH_CATEGORY',
+                payload: {
+                    data: 'funny'
+                }
+            })}>Funny</button>
+        {/* <button 
             onClick={clickHandler}
             value='funny'
-            data-category="funny"
-        >Funny</button>
+            data='funny'
+        >Funny</button> */}
 
-        <button 
-            onClick={clickHandler}
-            value='cohort'
-        >Cohort</button>
+        <button onClick={() => dispatch(
+            {
+                type: 'FETCH_CATEGORY',
+                payload: {
+                    data: 'cohort'
+                }
+            })}>cohort</button>
 
-        <button 
-            onClick={clickHandler}
-            value='cartoon'
-        >Cartoon</button>
+        <button onClick={() => dispatch(
+            {
+                type: 'FETCH_CATEGORY',
+                payload: {
+                    data: 'cartoon'
+                }
+            })}>Cartoon</button>
 
-        <button 
-            onClick={clickHandler}
-            value='nsfw'
-        >NSFW</button>
+        <button onClick={() => dispatch(
+            {
+                type: 'FETCH_CATEGORY',
+                payload: {
+                    data: 'nsfw'
+                }
+            })}>NSFW</button>
 
-        <button 
-            onClick={clickHandler}
-            value='meme'
-        >Meme</button>
-        
-
+        <button onClick={() => dispatch(
+            {
+                type: 'FETCH_CATEGORY',
+                payload: {
+                    data: 'meme'
+                }
+            })}>MEME</button>
 
     </>)
 }

@@ -68,11 +68,12 @@ function* fetchFavorites() {
 
 
 
-function* fetchCategory(){
+function* fetchCategory(action){
 
-    console.log('Inside fetchCategory inside Index');
+    console.log('Inside fetchCategory function inside Index', {params: 'funny'});
     ///// UNSURE IF THIS⬇️ ROUTE IS CORRECT
-    let response = yield axios.get('/api/category');
+    // {params: {category: }}
+    let response = yield axios.get(`/api/category/${action.payload.data}`);
     console.log('inside index', response.data);
     yield put({
         type: 'SET_CATEGORY',
