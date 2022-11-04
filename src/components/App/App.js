@@ -1,6 +1,10 @@
 import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import CategorySelector from '../CategorySelector/CategorySelector';
+import FavoriteList from '../FavoriteList/FavoriteList';
+import './App.css';
+
 
 function App() {
   return (
@@ -15,10 +19,10 @@ function App() {
         </Route>
         <Route path="/favorites" exact>
           <h1>Favorites View</h1>
+          <CategorySelector />
+          <FavoriteList />
         </Route>
-
     </Router>
-
   );
 }
 

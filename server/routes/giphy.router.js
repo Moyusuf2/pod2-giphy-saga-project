@@ -1,49 +1,31 @@
 const express = require('express');
-const pool = require('../modules/pool');
-const axios = require('axios')
-
-
 const router = express.Router();
+const axios = require('axios');
 
-const list = [{
-    url: 'https://media0.giphy.com/media/hb2zYRKYY8vLy/giphy.gif?cid=4811bb4bpr2xjatxak7typcninkh8wmatjlnp7gox66nfoql&rid=giphy.gif&ct=g'
-},{
-    url:'https://media0.giphy.com/media/hb2zYRKYY8vLy/giphy.gif?cid=4811bb4bpr2xjatxak7typcninkh8wmatjlnp7gox66nfoql&rid=giphy.gif&ct=g'
-}]
 
-// return all giphy results
-// router.get('/', (req, res) => {
+router.get('/:q', (req, res) => {
+    //TODO: this is where I am, what is in the req.body, I NEED IT TO BE THE QUERY STRING
+    //console.log('req body',req.body);
 
-//     res.sendStatus(list);
-// });
-
-router.get('/:param', (req, res) => {
-
-    console.log('param is:', req.params.param);
-    const searchTerm = req.params.param
     axios({
         method: 'GET',
         url: 'https://api.giphy.com/v1/gifs/search',
         params: {
-            api_key: process.env.GIPHY_API_KEY,
-            q: searchTerm,
-            limit: 1
+        
+            api_key:process.env.GIPHI_API_KEY,
+            q: req.params.q
         }
     })
-        .then((apiRes) => {
-            // send back the data from giphy
-            console.log('APIRES:',apiRes.data.data.images.fixed_height.url)
-            res.send(apiRes.data.data.images.fixed_height.url);
+    .then((resAPI)=>{
+        res.send(resAPI.data);
+    })
+    .catch((err)=>{
+        console.error('error in search router axios GET',err);
+        res.sendStatus(500);
+    })
+    
+    // res.send("what is the params");
+})
 
-            // You can send back your own custom object, too!
-            // res.send({
-            //     goodUrlToUse: apiRes.data.url
-            // })
-        })
-        .catch((err) => {
-            console.error('API req failed', err);
-            res.sendStatus(500);
-        });
-});
 
 module.exports = router;
