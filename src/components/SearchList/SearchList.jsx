@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 function SearchList() {
-  const resultList = useSelector((store) => store.searchResultList);
+  const resultList = useSelector( store => store.searchResultList);
+
+  console.log('resultList is:',resultList);
+
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("component did mount");
+    console.log("Getting GIF from API");
 
     dispatch({
       type: "FETCH_GIFS",
@@ -15,11 +18,14 @@ function SearchList() {
   return (
     <>
       <h2>SearchList</h2>
-      <ul>
-        {resultList.map((gif) => (
-          <li key={gif.id}>NAME: {gif.name}</li>
-        ))}
-      </ul>
+    
+        {resultList.length > 0 ? 
+        <h4>{resultList.map((image) => (
+            <img src={image.url} alt="image of GIF" />
+        ))}</h4> 
+        : 
+        <h4>'No GIF found'</h4>}
+      
       <SearchItem />
     </>
   );

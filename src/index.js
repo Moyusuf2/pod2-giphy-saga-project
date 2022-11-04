@@ -22,7 +22,11 @@ const favoriteList = (state = [], action) => {
     }
 };
 
-const searchResultList = (state = [], action) => {
+const searchResultList = (state = [{
+    url: 'https://media0.giphy.com/media/hb2zYRKYY8vLy/giphy.gif?cid=4811bb4bpr2xjatxak7typcninkh8wmatjlnp7gox66nfoql&rid=giphy.gif&ct=g'
+},{
+    url:'https://media0.giphy.com/media/hb2zYRKYY8vLy/giphy.gif?cid=4811bb4bpr2xjatxak7typcninkh8wmatjlnp7gox66nfoql&rid=giphy.gif&ct=g'
+}], action) => {
     switch (action.type) {
         case 'SET_RESULTS':
             return action.payload;
@@ -31,15 +35,17 @@ const searchResultList = (state = [], action) => {
     }
 };
 
-function* fetchGIFS() {
+function* fetchGIFS(action) {
     console.log('in fetchGIFS');
 
-    let response = yield axios.get('/api/favorite');
-    console.log(response);
-    yield put({
-        type: 'SET_RESULTS',
-        payload: response.data
-    })
+    console.log('looking for action.payload', action.payload);
+
+    let response = yield axios.get(`/api/giphy/${action.payload}`);
+    console.log('response from fetch',response);
+    // yield put({
+    //     type: 'SET_RESULTS',
+    //     payload: response.data
+    // })
 };
 
 function* createFavorite(action) {
