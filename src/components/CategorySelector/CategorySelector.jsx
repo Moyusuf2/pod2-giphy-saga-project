@@ -6,10 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 function CategorySelector() {
     console.log('in CategorySelector');
 
+    /// initiates get request to DB
     const dispatch = useDispatch();
-    const category = useSelector(store=> store.categoryList);
+    /// get category list results from DB.
+    const categoryList = useSelector(store => store.categoryList);
 
-    console.log(category);
+    console.log(categoryList);
 
 
 
@@ -18,6 +20,7 @@ function CategorySelector() {
 
         <h3>Sort Category</h3>
 
+{/* //// buttons to select category */}
 
         <button onClick={() => dispatch(
             {
@@ -34,12 +37,6 @@ function CategorySelector() {
                     data: 'funny'
                 }
             })}>Funny</button>
-        {/* <button 
-            onClick={clickHandler}
-            value='funny'
-            data='funny'
-        >Funny</button> */}
-
         <button onClick={() => dispatch(
             {
                 type: 'FETCH_CATEGORY',
@@ -47,7 +44,6 @@ function CategorySelector() {
                     data: 'cohort'
                 }
             })}>cohort</button>
-
         <button onClick={() => dispatch(
             {
                 type: 'FETCH_CATEGORY',
@@ -55,7 +51,6 @@ function CategorySelector() {
                     data: 'cartoon'
                 }
             })}>Cartoon</button>
-
         <button onClick={() => dispatch(
             {
                 type: 'FETCH_CATEGORY',
@@ -63,7 +58,6 @@ function CategorySelector() {
                     data: 'nsfw'
                 }
             })}>NSFW</button>
-
         <button onClick={() => dispatch(
             {
                 type: 'FETCH_CATEGORY',
@@ -71,6 +65,26 @@ function CategorySelector() {
                     data: 'meme'
                 }
             })}>MEME</button>
+
+
+            
+        <div>
+            <ul>
+                
+            {categoryList.map((categoryItem) => (
+                
+                <li key={categoryItem.url}>
+                    <img src={categoryItem.url} alt="" />
+                </li>
+            ))}
+            </ul>
+        </div>
+
+
+
+
+
+
 
     </>)
 }
