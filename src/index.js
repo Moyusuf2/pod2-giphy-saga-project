@@ -31,6 +31,17 @@ const searchResultList = (state = [], action) => {
     }
 };
 
+const categoryList = (state = [], action) => {
+    console.log('inside categoryList function');
+    switch (action.type) {
+        case 'SET_CATEGORY':
+            return action.payload;
+    }
+    return state;
+}
+
+
+
 function* fetchGIFS() {
     console.log('in fetchGIFS');
 
@@ -54,13 +65,18 @@ function* fetchFavorites() {
         type: 'SET_FAVORITES',
         payload: response.data
     })
-}
+};
 
-
-
-function* fetchCategory(){
-
+/// GET results based on category chosen
+function* fetchCategory() {
     console.log('Inside fetchCategory inside Index');
+    ///// UNSURE IF THIS⬇️ ROUTE IS CORRECT
+    let response = yield axios.get('/api/favorite/category');
+    console.log(response);
+    yield put({
+        type: 'SET_CATEGORY',
+        payload: response.data
+    })
 }
 
 
@@ -83,7 +99,8 @@ const sagaMiddleware = createSagaMiddleware();
 const storeInstance = createStore(
     combineReducers({
         favoriteList,
-        searchResultList
+        searchResultList,
+        categoryList
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
