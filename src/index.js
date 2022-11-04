@@ -40,12 +40,14 @@ const categoryList = (state = [], action) => {
     }; 
 };
 
-/// 
-function* fetchGIFS() {
+function* fetchGIFS(action) {
+
     console.log('in fetchGIFS');
 
-    let response = yield axios.get('/api/favorite');
+    let response = yield axios.get(`/api/giphy/${action.payload}`);
     console.log(response);
+
+    TODO: //handle the data that comes back, ie what do we want
     yield put({
         type: 'SET_RESULTS',
         payload: response.data
