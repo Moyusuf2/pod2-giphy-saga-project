@@ -12,7 +12,7 @@ import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
 
-// Reducers
+/// Reducers
 const favoriteList = (state = [], action) => {
     switch (action.type) {
         case 'SET_FAVORITES':
@@ -28,10 +28,20 @@ const searchResultList = (state = [], action) => {
             return action.payload;
         default:
             return state;
-    }
+    };
+};
+
+const categoryList = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_CATEGORY':
+            return action.payload;
+        default:
+           return state; 
+    }; 
 };
 
 function* fetchGIFS(action) {
+
     console.log('in fetchGIFS');
 
     let response = yield axios.get(`/api/giphy/${action.payload}`);
@@ -56,36 +66,70 @@ function* fetchFavorites() {
         type: 'SET_FAVORITES',
         payload: response.data
     })
+};
+
+
+
+function* fetchCategory(action){
+
+    console.log('Inside fetchCategory function inside Index', {params: 'funny'});
+    ///// UNSURE IF THIS⬇️ ROUTE IS CORRECT
+    // {params: {category: }}
+    let response = yield axios.get(`/api/category/${action.payload.data}`);
+    console.log('inside index', response.data);
+    yield put({
+        type: 'SET_CATEGORY',
+        payload: response.data
+    });
 }
 
+function* updateCategory(action) {
+    console.log('in updateCategory');
+    console.log('in updateCategory action.payload.id', action.payload.id); // {item: id}
+    console.log('in updateCategory action.payload.data', action.payload.data);
+    // corresponds to button press 1 = funny, 2 = cohort, 3 = cartoon, etc...
+
+    yield axios.put(`/api/favorite/${action.payload.id}`, { data: action.payload.data }); // ???
+
+    yield put({
+        type: 'FETCH_FAVORITES'
+    });
 
 
-function* fetchCategory(){
-
-    console.log('Inside fetchCategory inside Index');
+    // const updateCategory = (id) => { // ???
+    //     axios({
+    //         method: 'PUT',
+    //         url: `/api/favorite/${id}`,
+    //         data: action.payload.data
+    //     })
+    //         .then(response => {
+    //             console.log('UPDATE response from server', response.data); // Ok
+    //         })
+    //         .catch(err => {
+    //             console.log('UPDATE err from server', err);
+    //         })
+    // }
 }
-
-
 
 // Create the rootSaga generator function
 function* watcherSaga() {
     yield takeEvery('FETCH_GIFS', fetchGIFS);
     yield takeEvery('CREATE_FAVORITE', createFavorite);
-
     yield takeEvery('FETCH_CATEGORY', fetchCategory);
     yield takeEvery('FETCH_FAVORITES', fetchFavorites);
+    yield takeEvery('UPDATE_CATEGORY', updateCategory);
 
 }
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
-
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         favoriteList,
-        searchResultList
+        searchResultList,
+        categoryList
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
