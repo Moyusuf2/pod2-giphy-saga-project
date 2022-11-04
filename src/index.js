@@ -12,7 +12,7 @@ import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
 
-// Reducers
+/// Reducers
 const favoriteList = (state = [], action) => {
     switch (action.type) {
         case 'SET_FAVORITES':
@@ -28,20 +28,19 @@ const searchResultList = (state = [], action) => {
             return action.payload;
         default:
             return state;
-    }
+    };
 };
 
 const categoryList = (state = [], action) => {
-    console.log('inside categoryList function');
     switch (action.type) {
         case 'SET_CATEGORY':
             return action.payload;
-    }
-    return state;
-}
+        default:
+           return state; 
+    }; 
+};
 
-
-
+/// 
 function* fetchGIFS() {
     console.log('in fetchGIFS');
 
@@ -71,29 +70,24 @@ function* fetchFavorites() {
 function* fetchCategory() {
     console.log('Inside fetchCategory inside Index');
     ///// UNSURE IF THIS⬇️ ROUTE IS CORRECT
-    let response = yield axios.get('/api/favorite/category');
-    console.log(response);
+    let response = yield axios.get('/api/category');
+    console.log('inside index', response.data);
     yield put({
         type: 'SET_CATEGORY',
         payload: response.data
-    })
-}
-
-
+    });
+};
 
 // Create the rootSaga generator function
 function* watcherSaga() {
     yield takeEvery('FETCH_GIFS', fetchGIFS);
     yield takeEvery('CREATE_FAVORITE', createFavorite);
-
     yield takeEvery('FETCH_CATEGORY', fetchCategory);
     yield takeEvery('FETCH_FAVORITES', fetchFavorites);
-
 }
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
-
 
 // Create one store that all components can use
 const storeInstance = createStore(

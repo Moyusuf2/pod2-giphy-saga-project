@@ -11,7 +11,8 @@ function CategorySelector() {
 
     const clickHandler = e => {
         const buttonValue = e.target.value
-        console.log(buttonValue);
+        console.log('Cat numb', buttonValue);
+
 
 
 /// Dispatch to fetch category based on buttonValue. 
@@ -19,8 +20,6 @@ function CategorySelector() {
             type: 'FETCH_CATEGORY',
             payload: buttonValue
         })
-
-
     }
 
 
@@ -36,6 +35,7 @@ function CategorySelector() {
         <button 
             onClick={clickHandler}
             value='funny'
+            data-category="funny"
         >Funny</button>
 
         <button 
