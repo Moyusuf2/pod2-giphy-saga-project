@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import CategoryItem from '../CategoryItem/CategoryItem'
 
 
 
@@ -69,14 +70,17 @@ function CategorySelector() {
 
             
         <div>
+
             <ul>
                 
-            {categoryList.map((categoryItem) => (
-                
-                <li key={categoryItem.url}>
-                    <img src={categoryItem.url} alt="" />
-                </li>
-            ))}
+            {categoryList.map((categoryItem) => {
+              
+                    return (
+                        
+                        // pass const categoryList to each favoriteItem
+                        <CategoryItem key={categoryItem.url} categoryItem={categoryItem} />
+                    );
+                })}
             </ul>
         </div>
 
