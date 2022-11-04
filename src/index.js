@@ -22,7 +22,11 @@ const favoriteList = (state = [], action) => {
     }
 };
 
-const searchResultList = (state = [], action) => {
+const searchResultList = (state = [{
+    url: 'https://media0.giphy.com/media/hb2zYRKYY8vLy/giphy.gif?cid=4811bb4bpr2xjatxak7typcninkh8wmatjlnp7gox66nfoql&rid=giphy.gif&ct=g'
+},{
+    url:'https://media0.giphy.com/media/hb2zYRKYY8vLy/giphy.gif?cid=4811bb4bpr2xjatxak7typcninkh8wmatjlnp7gox66nfoql&rid=giphy.gif&ct=g'
+}], action) => {
     switch (action.type) {
         case 'SET_RESULTS':
             return action.payload;
@@ -42,6 +46,7 @@ const categoryList = (state = [], action) => {
 
 function* fetchGIFS(action) {
 
+
     console.log('in fetchGIFS');
 
     let response = yield axios.get(`/api/giphy/${action.payload}`);
@@ -52,6 +57,7 @@ function* fetchGIFS(action) {
         type: 'SET_RESULTS',
         payload: response.data
     })
+
 };
 
 function* createFavorite(action) {
